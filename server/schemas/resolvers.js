@@ -4,7 +4,7 @@ const { signToken } = require("../utils/auth")
 
 const resolvers = {
   Query: {
-    loggedIn: async (parent, args, context) => {
+    me: async (parent, args, context) => {
       if (!context.user) {
         throw new AuthenticationError("You must be logged in");
       } 
@@ -51,7 +51,7 @@ const resolvers = {
       return updatedUser;
     },
 
-    deleteBook: async (parent, { bookId }, context) => {
+    removeBook: async (parent, { bookId }, context) => {
       if (!context.user) {
         throw new AuthenticationError("You must be logged in");
       }
