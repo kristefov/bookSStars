@@ -14,10 +14,16 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 
+
 const SavedBooks = () => {
   const {loading, data} = useQuery(GET_ME);
   const [removeBook] = useMutation(REMOVE_BOOK)
   const userData= data?.me || {}
+  const [books, setBooks] = useState();
+
+  useEffect(()=>{
+    setBooks(data?.me.savedBooks);
+  },[data]);
 
 if (!userData?.username) {
   return (
@@ -31,6 +37,7 @@ if (!userData?.username) {
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
+    
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -44,16 +51,18 @@ if (!userData?.username) {
 
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
-      document.getElementById(bookId).remove();
-      let counterEl = document.getElementById('counter');
-      let currentNum = parseInt(counterEl.innerText.split(' ')[1]);
-      if (currentNum === 1) {
-        return (counterEl.innerText = 'You have no saved books!');
-      } else {
-        counterEl.innerText = `Viewing ${currentNum - 1} saved ${
-          currentNum === 1 ? 'book' : 'books'
-        }`;
-      }
+      // document.getElementById(bookId).remove();
+      // let counterEl = document.getElementById('counter');
+      // let currentNum = parseInt(counterEl.innerText.split(' ')[1]);
+      // if (currentNum === 1) {
+      //   return (counterEl.innerText = 'You have no saved books!');
+      // } else {
+      //   counterEl.innerText = `Viewing ${currentNum - 1} saved ${
+      //     currentNum === 1 ? 'book' : 'books'
+      //   }`;
+      // }
+      const updated = books.filter((book)=> book.bookId !== bookId);   
+      setBooks(updated)
     } catch (err) {
       console.error(err);
     }
@@ -73,12 +82,12 @@ if (!userData?.username) {
       </div>
       <Container>
         <h2 id='counter' className='pt-5'>
-          {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
+          {books?.length
+            ? `Viewing ${books?.length} saved ${books?.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <Row>
-          {userData.savedBooks.map((book) => {
+          {books?.map((book) => {
             return (
               <Col id={book.bookId} key={book.bookId}md="4">
                 <Card key={book.bookId} border='dark'>
