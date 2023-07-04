@@ -1,3 +1,5 @@
+/* The code is importing the necessary dependencies and components from the React and React Bootstrap
+libraries. */
 import React, { useState, useEffect } from 'react';
 import {
   Container,
@@ -7,6 +9,7 @@ import {
   Col
 } from 'react-bootstrap';
 
+/* The code is importing necessary dependencies and functions from various files and libraries. */
 import { useQuery, useMutation } from '@apollo/client';
 import  { GET_ME } from '../utils/queries'
 import { REMOVE_BOOK } from '../utils/mutations';
@@ -16,11 +19,15 @@ import { removeBookId } from '../utils/localStorage';
 
 
 const SavedBooks = () => {
+ /* The code is using the `useQuery` and `useMutation` hooks from Apollo Client to fetch data and
+ perform mutations. */
   const {loading, data} = useQuery(GET_ME);
   const [removeBook] = useMutation(REMOVE_BOOK)
   const userData= data?.me || {}
   const [books, setBooks] = useState();
 
+  /* The `useEffect` hook is used to perform side effects in a functional component. In this case, it
+  is used to update the `books` state variable whenever the `data` variable changes. */
   useEffect(()=>{
     setBooks(data?.me.savedBooks);
   },[data]);
@@ -51,16 +58,10 @@ if (!userData?.username) {
 
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
-      // document.getElementById(bookId).remove();
-      // let counterEl = document.getElementById('counter');
-      // let currentNum = parseInt(counterEl.innerText.split(' ')[1]);
-      // if (currentNum === 1) {
-      //   return (counterEl.innerText = 'You have no saved books!');
-      // } else {
-      //   counterEl.innerText = `Viewing ${currentNum - 1} saved ${
-      //     currentNum === 1 ? 'book' : 'books'
-      //   }`;
-      // }
+    
+      /* The code `const updated = books.filter((book)=> book.bookId !== bookId); setBooks(updated)` is
+      filtering out the book with the specified `bookId` from the `books` array and updating the
+      state with the filtered array. */
       const updated = books.filter((book)=> book.bookId !== bookId);   
       setBooks(updated)
     } catch (err) {

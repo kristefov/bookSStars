@@ -1,3 +1,5 @@
+/* These import statements are importing various functions and modules from different files and
+libraries in the project. */
 import React, { useState, useEffect } from 'react';
 import {
   Container,
@@ -8,6 +10,8 @@ import {
   Row
 } from 'react-bootstrap';
 
+/* These import statements are importing various functions and modules from different files in the
+project. */
 import Auth from '../utils/auth';
 import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
