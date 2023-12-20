@@ -56,7 +56,7 @@ For suggestions or contributions you can reach me at my email address or you can
 ## Link
 Link to repository:
 
-https://github.com/kristiyantefov/bookSStars
+https://github.com/kristefov/bookSStars
 
 
 Link to website:
@@ -66,7 +66,7 @@ https://booksstars-cd18aac64bca.herokuapp.com/
 #
 ## Authors
 
-- [GitHub - Kristiyan Tefov](https://github.com/kristiyantefov)
+- [GitHub - Kris](https://github.com/kristefov)
 
 ## Mock-Up
 
